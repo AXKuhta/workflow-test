@@ -1,0 +1,10 @@
+name: Automatic testing
+on: [push]
+jobs:
+  Run-All-Tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download repo
+        uses: actions/checkout@v3
+      - name: Run pytest
+        run: pytest
