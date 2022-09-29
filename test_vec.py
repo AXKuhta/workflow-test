@@ -1,4 +1,4 @@
-import ops as vec
+import vec_ops as vec
 
 def test_equal():
 	assert vec.equal( [1,2,3], [1,2,3] )
