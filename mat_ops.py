@@ -45,5 +45,26 @@ def sub(a, b, do_copy=True):
 	
 	return a
 
+def kmul(a, k, do_copy=True):
+	if do_copy:
+		a = [] + a
 
+	for i in range( len(a) ):
+		a[i] = vec.mul(a[i], k, do_copy)
+	
+	return a
+
+# Всегда создаёт новую копию, поскольку может изменится размерность
+def transpose(a):
+	b = []
+
+	for i in range( len(a) ):
+		for j in range( len(a[i]) ):
+			if len(b) <= j:
+				b.append([])
+				
+			b[j].append(a[i][j])
+
+	return b
+	
 
