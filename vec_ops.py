@@ -3,17 +3,6 @@ import math
 def value_close(a, b):
 	return abs(abs(a) - abs(b)) < 0.0001
 
-# Точное соответствие
-def equal(a, b):
-	if len(a) != len(b):
-		raise Exception("Length mismatch")
-
-	for i in range( len(a) ):
-		if a[i] != b[i]:
-			return False
-			
-	return True
-
 # Примерное соответствие
 def close(a, b, eps = 0.0001):
 	if len(a) != len(b):

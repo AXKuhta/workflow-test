@@ -13,15 +13,6 @@ def dimensions_must_match(a, b):
 	for i in range( len(a) ):
 		if len(a[i]) != len(b[i]):
 			raise Exception("Row length doesn't match")
-		
-def equal(a, b):
-	dimensions_must_match(a, b)
-	
-	for i in range( len(a) ):
-		if not vec.equal(a[i], b[i]):
-			return False
-			
-	return True
 
 def add(a, b, do_copy=True):
 	dimensions_must_match(a, b)

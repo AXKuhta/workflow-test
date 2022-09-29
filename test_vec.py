@@ -1,22 +1,19 @@
 import vec_ops as vec
-
-def test_equal():
-	assert vec.equal( [1,2,3], [1,2,3] )
 	
 def test_close():
 	assert vec.close( [5, 0.00005, 1], [5, 0.00006, 1], 0.0001 )
 
 def test_add():
-	assert vec.equal( vec.add( [1,2,3], [4,5,6] ), [5,7,9] )
+	assert vec.add( [1,2,3], [4,5,6] ) == [5,7,9]
 
 def test_sub():
-	assert vec.equal( vec.sub( [1,1,1], [1,1,1] ), [0,0,0] )
+	assert vec.sub( [1,1,1], [1,1,1] ) == [0,0,0]
 
 def test_mul():
-	assert vec.equal( vec.mul( [1,2,3], 3 ), [3,6,9] )
+	assert vec.mul( [1,2,3], 3 ) == [3,6,9]
 	
 def test_div():
-	assert vec.equal( vec.div( [4,6,8], 2 ), [2,3,4] )
+	assert vec.div( [4,6,8], 2 ) == [2,3,4]
 
 def test_dot():
 	assert vec.dot( [2,3,4], [5,6,7] ) == 2*5 + 3*6 + 4*7
@@ -49,13 +46,13 @@ def test_orthogonal():
 	assert vec.orthogonal( [1, 1], [100,100] ) == False
 
 def test_invert():
-	assert vec.equal( vec.invert( [1,-1] ), [-1,1] )
+	assert vec.invert( [1,-1] ) == [-1,1]
 
 def test_norm():
-	assert vec.equal( vec.norm( [1, 5, 10] ), [0.1/(1.26**0.5), 0.5/(1.26**0.5), 1.0/(1.26**0.5)] )
+	assert vec.norm( [1, 5, 10] ) == [0.1/(1.26**0.5), 0.5/(1.26**0.5), 1.0/(1.26**0.5)]
 
 def test_project():
-	assert vec.equal( vec.project([1,1], [0,-1]), [-0.5, -0.5] )
+	assert vec.project([1,1], [0,-1]) == [-0.5, -0.5]
 
 def test_sproject():
 	assert vec.sproject([1,1], [0,-1]) == 0.5**0.5
