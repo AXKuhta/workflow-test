@@ -1,5 +1,6 @@
 import vec_ops as vec
 
+# Проверка совпадения размерности матриц
 def dimensions_must_match(a, b):
 	if len(a) != len(b):
 		raise Exception("Row count doesn't match")
@@ -36,6 +37,7 @@ def sub(a, b, do_copy=True):
 	
 	return a
 
+# Умножение матрицы на скаляр
 def kmul(a, k, do_copy=True):
 	if do_copy:
 		a = [] + a
@@ -45,6 +47,7 @@ def kmul(a, k, do_copy=True):
 	
 	return a
 
+# Транспонирование матрицы
 # Всегда создаёт новую копию, поскольку может изменится размерность
 def transpose(a):
 	b = []
@@ -57,7 +60,8 @@ def transpose(a):
 			b[j].append(a[i][j])
 
 	return b
-	
+
+# Умножение матрицы на матрицу
 def mul(a, b):
 	t = transpose(b)
 	mat = []
@@ -72,12 +76,14 @@ def mul(a, b):
 
 	return mat
 
+# Извлечение строки
 def row(a, i):
 	if i > len(a) - 1:
 		raise Exception("Index out of range")
 
 	return a[i]
 
+# Извлечение столбца
 def col(a, i):
 	t = transpose(a)
 
@@ -86,6 +92,7 @@ def col(a, i):
 
 	return t[i]
 
+# Перестановка строк
 def rowswap(a, i, j, do_copy=True):
 	if do_copy:
 		a = [] + a
@@ -102,6 +109,7 @@ def rowswap(a, i, j, do_copy=True):
 
 	return a
 
+# Умножение строки на скаляр
 # a[i] = k*a[i]
 def rowk(a, i, k, do_copy=True):
 	if do_copy:
@@ -114,6 +122,7 @@ def rowk(a, i, k, do_copy=True):
 
 	return a
 
+# Добавляет к строке i строку j, умноженную на скаляр
 # a[i] = a[i] + k*a[j]
 def rowkadd(a, i, j, k, do_copy=True):
 	if do_copy:
