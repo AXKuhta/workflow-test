@@ -15,6 +15,11 @@ def dimensions_must_match(a, b):
 		if len(a[i]) != len(b[i]):
 			raise Exception("Row length doesn't match")
 
+# Проверка наличия в матрице строки с указанным индексом
+def index_must_exist(a, i):
+	if i > len(a) - 1:
+		raise Exception("Index out of range")
+
 def add(a, b, do_copy=True):
 	dimensions_must_match(a, b)
 
@@ -78,8 +83,7 @@ def mul(a, b):
 
 # Извлечение строки
 def row(a, i):
-	if i > len(a) - 1:
-		raise Exception("Index out of range")
+	index_must_exist(a, i)
 
 	return a[i]
 
@@ -87,21 +91,17 @@ def row(a, i):
 def col(a, i):
 	t = transpose(a)
 
-	if i > len(t) - 1:
-		raise Exception("Index out of range")
+	index_must_exist(t, i)
 
 	return t[i]
 
 # Перестановка строк
 def rowswap(a, i, j, do_copy=True):
+	index_must_exist(a, i)
+	index_must_exist(a, j)
+
 	if do_copy:
 		a = [] + a
-
-	if i > len(a) - 1:
-		raise Exception("Index out of range")
-
-	if j > len(a) - 1:
-		raise Exception("Index out of range")
 
 	t = a[i]
 	a[i] = a[j]
@@ -112,11 +112,10 @@ def rowswap(a, i, j, do_copy=True):
 # Умножение строки на скаляр
 # a[i] = k*a[i]
 def rowk(a, i, k, do_copy=True):
+	index_must_exist(a, i)
+
 	if do_copy:
 		a = [] + a
-
-	if i > len(a) - 1:
-		raise Exception("Index out of range")
 
 	a[i] = vec.mul(a[i], k, do_copy)
 
@@ -125,14 +124,11 @@ def rowk(a, i, k, do_copy=True):
 # Добавляет к строке i строку j, умноженную на скаляр
 # a[i] = a[i] + k*a[j]
 def rowkadd(a, i, j, k, do_copy=True):
+	index_must_exist(a, i)
+	index_must_exist(a, j)
+
 	if do_copy:
 		a = [] + a
-
-	if i > len(a) - 1:
-		raise Exception("Index out of range")
-
-	if j > len(a) - 1:
-		raise Exception("Index out of range")
 
 	krow = vec.mul(a[j], k, do_copy)
 	a[i] = vec.add(a[i], krow, do_copy)
