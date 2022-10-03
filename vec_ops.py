@@ -7,8 +7,9 @@ def length_must_match(a, b):
 def value_close(a, b):
 	return abs(abs(a) - abs(b)) < 0.0001
 
-# Примерное соответствие
 def close(a, b, eps = 0.0001):
+	"""Примерное соответствие"""
+
 	length_must_match(a, b)
 
 	for i in range( len(a) ):
@@ -17,9 +18,13 @@ def close(a, b, eps = 0.0001):
 			
 	return True
 
-# Без копирования: a += b
-# При копировании: c = a + b
 def add(a, b, do_copy=True):
+	"""
+	Сложение векторов
+	Без копирования: a += b
+	При копировании: c = a + b
+	"""
+
 	length_must_match(a, b)
 
 	if do_copy:
@@ -30,9 +35,13 @@ def add(a, b, do_copy=True):
 		
 	return a
 
-# Без копирования: a -= b
-# При копировании: c = a - b
 def sub(a, b, do_copy=True):
+	"""
+	Вычитание векторов
+	Без копирования: a -= b
+	При копировании: c = a - b
+	"""
+
 	length_must_match(a, b)
 
 	if do_copy:

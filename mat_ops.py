@@ -1,7 +1,8 @@
 import vec_ops as vec
 
-# Проверка совпадения размерности матриц
 def dimensions_must_match(a, b):
+	"""Проверка совпадения размерности матриц"""
+
 	if len(a) != len(b):
 		raise ValueError("Row count doesn't match")
 		
@@ -15,8 +16,9 @@ def dimensions_must_match(a, b):
 		if len(a[i]) != len(b[i]):
 			raise ValueError("Row length doesn't match")
 
-# Проверка наличия в матрице строки с указанным индексом
 def index_must_exist(a, i):
+	"""Проверка наличия в матрице строки с указанным индексом"""
+
 	if i > len(a) - 1:
 		raise ValueError("Index out of range")
 
@@ -42,8 +44,9 @@ def sub(a, b, do_copy=True):
 	
 	return a
 
-# Умножение матрицы на скаляр
 def kmul(a, k, do_copy=True):
+	"""Умножение матрицы на скаляр"""
+
 	if do_copy:
 		a = [] + a
 
@@ -52,9 +55,12 @@ def kmul(a, k, do_copy=True):
 	
 	return a
 
-# Транспонирование матрицы
-# Всегда создаёт новую копию, поскольку может изменится размерность
 def transpose(a):
+	"""
+	Транспонирование матрицы
+	Всегда создаёт новую копию, поскольку может изменится размерность
+	"""
+
 	b = []
 
 	for i in range( len(a) ):
@@ -66,8 +72,9 @@ def transpose(a):
 
 	return b
 
-# Умножение матрицы на матрицу
 def mul(a, b):
+	"""Умножение матрицы на матрицу"""
+
 	t = transpose(b)
 	mat = []
 
@@ -81,22 +88,25 @@ def mul(a, b):
 
 	return mat
 
-# Извлечение строки
 def row(a, i):
+	"""Извлечение строки"""
+
 	index_must_exist(a, i)
 
 	return a[i]
 
-# Извлечение столбца
 def col(a, i):
+	"""Извлечение столбца"""
+
 	t = transpose(a)
 
 	index_must_exist(t, i)
 
 	return t[i]
 
-# Перестановка строк
 def rowswap(a, i, j, do_copy=True):
+	"""Перестановка строк"""
+
 	index_must_exist(a, i)
 	index_must_exist(a, j)
 
@@ -109,9 +119,12 @@ def rowswap(a, i, j, do_copy=True):
 
 	return a
 
-# Умножение строки на скаляр
-# a[i] = k*a[i]
 def rowk(a, i, k, do_copy=True):
+	"""
+	Умножение строки на скаляр
+	a[i] = k*a[i]
+	"""
+
 	index_must_exist(a, i)
 
 	if do_copy:
@@ -121,9 +134,12 @@ def rowk(a, i, k, do_copy=True):
 
 	return a
 
-# Добавляет к строке i строку j, умноженную на скаляр
-# a[i] = a[i] + k*a[j]
 def rowkadd(a, i, j, k, do_copy=True):
+	"""
+	Добавляет к строке i строку j, умноженную на скаляр
+	a[i] = a[i] + k*a[j]
+	"""
+
 	index_must_exist(a, i)
 	index_must_exist(a, j)
 
