@@ -3,22 +3,22 @@ import vec_ops as vec
 # Проверка совпадения размерности матриц
 def dimensions_must_match(a, b):
 	if len(a) != len(b):
-		raise Exception("Row count doesn't match")
+		raise ValueError("Row count doesn't match")
 		
 	if type(a[0]) != type([]):
-		raise Exception("A is a vector")
+		raise TypeError("A is a vector")
 		
 	if type(b[0]) != type([]):
-		raise Exception("B is a vector")
+		raise TypeError("B is a vector")
 		
 	for i in range( len(a) ):
 		if len(a[i]) != len(b[i]):
-			raise Exception("Row length doesn't match")
+			raise ValueError("Row length doesn't match")
 
 # Проверка наличия в матрице строки с указанным индексом
 def index_must_exist(a, i):
 	if i > len(a) - 1:
-		raise Exception("Index out of range")
+		raise ValueError("Index out of range")
 
 def add(a, b, do_copy=True):
 	dimensions_must_match(a, b)

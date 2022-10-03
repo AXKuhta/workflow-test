@@ -1,12 +1,15 @@
 import math
 
+def length_must_match(a, b):
+	if len(a) != len(b):
+		raise ValueError("Length mismatch")
+
 def value_close(a, b):
 	return abs(abs(a) - abs(b)) < 0.0001
 
 # Примерное соответствие
 def close(a, b, eps = 0.0001):
-	if len(a) != len(b):
-		raise Exception("Length mismatch")
+	length_must_match(a, b)
 
 	for i in range( len(a) ):
 		if abs(a[i] - b[i]) > eps:
@@ -17,11 +20,10 @@ def close(a, b, eps = 0.0001):
 # Без копирования: a += b
 # При копировании: c = a + b
 def add(a, b, do_copy=True):
+	length_must_match(a, b)
+
 	if do_copy:
 		a = [] + a
-		
-	if len(a) != len(b):
-		raise Exception("Length mismatch")
 		
 	for i in range( len(a) ):
 		a[i] += b[i]
@@ -31,11 +33,10 @@ def add(a, b, do_copy=True):
 # Без копирования: a -= b
 # При копировании: c = a - b
 def sub(a, b, do_copy=True):
+	length_must_match(a, b)
+
 	if do_copy:
 		a = [] + a
-		
-	if len(a) != len(b):
-		raise Exception("Length mismatch")
 		
 	for i in range( len(a) ):
 		a[i] -= b[i]
@@ -61,8 +62,7 @@ def div(a, k, do_copy=True):
 	return a
 
 def dot(a, b):
-	if len(a) != len(b):
-		raise Exception("Length mismatch")
+	length_must_match(a, b)
 	
 	acc = 0.0
 	
