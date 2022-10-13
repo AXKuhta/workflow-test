@@ -60,3 +60,10 @@ def test_rowkadd():
 	k = -5
 
 	assert mat.rowkadd(a, 0, 1, k) == [[1,-5], [0,1]]
+	
+def test_cat():
+	a = [[1, 2], [3, 4]]
+	b = [[5], [6]]
+	
+	assert mat.cat(a, b) == [[1, 2, 5], [3, 4, 6]]
+

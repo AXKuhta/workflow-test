@@ -150,3 +150,15 @@ def rowkadd(a, i, j, k, do_copy=True):
 	a[i] = vec.add(a[i], krow, do_copy)
 
 	return a
+
+def cat(a, b, do_copy=True):
+	"""Производит склейку двух матриц"""
+
+	if do_copy:
+		a = [] + a
+
+	for i in range( len(a) ):
+		a[i] += b[i]
+
+	return a
+
