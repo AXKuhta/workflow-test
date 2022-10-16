@@ -67,3 +67,22 @@ def test_cat():
 	
 	assert mat.cat(a, b) == [[1, 2, 5], [3, 4, 6]]
 
+def test_solve_n2():
+	a = [[2, 3], [4, 3]]
+	b = [[2], [7]]
+
+	assert mat.solve(a, b) == [2.5, -1.0]
+
+def test_solve_n3():
+	a = [[-1, 2, 6], [3, -6, 0], [1, 0, 6]]
+	b = [[15], [-9], [5]]
+
+	assert mat.solve(a, b) == [-7, -2, 2]
+
+def test_solve_n4():
+	a = [[1, 2, 3, -2], [2, -1, -2, -3], [3, 2, -1, 2], [2, -3, 2, 1]]
+	b = [[1], [2], [-5], [11]]
+
+	assert vec.close(mat.solve(a, b), [2/3, -43/18, 13/9, -7/18])
+
+

@@ -146,7 +146,7 @@ def rowkadd(a, i, j, k, do_copy=True):
 	if do_copy:
 		a = [] + a
 
-	krow = vec.mul(a[j], k, do_copy)
+	krow = vec.mul(a[j], k, do_copy=True) # Здесь do_copy принудительно True
 	a[i] = vec.add(a[i], krow, do_copy)
 
 	return a
@@ -161,4 +161,37 @@ def cat(a, b, do_copy=True):
 		a[i] += b[i]
 
 	return a
+
+def solve(a, b):
+	"""
+	Решить систему линейных уравнений
+	Требует квадратную матрицу A
+	"""
+
+	c = cat(a, b)
+	vsz = len(c)
+
+	for i in range(vsz):
+		elem = c[i][i]
+		
+		# Проверить, не попался ли нам ноль на главной диагонали
+		# Если попался, то текущую строку нужно отправить куда-нибудь ниже
+		if elem == 0:
+			rowswap(c, i, i + 1, do_copy=False)
+			elem = c[i][i]
+		
+		assert elem != 0
+		
+		# Привести элемент на главной диагонали к единице
+		rowk(c, i, 1/elem, do_copy=False)
+		
+		# Привести все элементы выше и ниже к нулям
+		for j in range(vsz):
+			if j == i:
+				continue
+			
+			if c[j][i] != 0.0:
+				c = rowkadd(c, j, i, -c[j][i], do_copy=False)
+				
+	return col(c, vsz)
 
