@@ -162,11 +162,31 @@ def cat(a, b, do_copy=True):
 
 	return a
 
-def solve(a, b):
+def log_function_call(func):
+	"""Получает функцию и возвращаёт обёртку, при вызове которой будут напечатаны аргументы и результат выполнения функции"""
+
+	def wrapper(*args, **kwargs):
+		print(func.__name__, args)
+		result = func(*args, **kwargs)
+		print("->", result)
+		return result
+		
+	return wrapper
+
+def solve(a, b, log=True):
 	"""
 	Решить систему линейных уравнений
 	Требует квадратную матрицу A
 	"""
+	
+	if log:
+		l_rowswap = log_function_call(rowswap)
+		l_rowk = log_function_call(rowk)
+		l_rowkadd = log_function_call(rowkadd)
+	else:
+		l_rowswap = rowswap
+		l_rowk = rowk
+		l_rowkadd = rowkadd
 
 	c = cat(a, b)
 	vsz = len(c)
@@ -177,13 +197,13 @@ def solve(a, b):
 		# Проверить, не попался ли нам ноль на главной диагонали
 		# Если попался, то текущую строку нужно отправить куда-нибудь ниже
 		if elem == 0:
-			rowswap(c, i, i + 1, do_copy=False)
+			l_rowswap(c, i, i + 1, do_copy=False)
 			elem = c[i][i]
 		
 		assert elem != 0
 		
 		# Привести элемент на главной диагонали к единице
-		rowk(c, i, 1/elem, do_copy=False)
+		l_rowk(c, i, 1/elem, do_copy=False)
 		
 		# Привести все элементы выше и ниже к нулям
 		for j in range(vsz):
@@ -191,7 +211,7 @@ def solve(a, b):
 				continue
 			
 			if c[j][i] != 0.0:
-				c = rowkadd(c, j, i, -c[j][i], do_copy=False)
+				l_rowkadd(c, j, i, -c[j][i], do_copy=False)
 				
 	return col(c, vsz)
 
