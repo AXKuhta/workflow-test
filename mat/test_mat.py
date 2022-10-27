@@ -93,7 +93,6 @@ def test_inverse():
 		 [ 6.7410, -1.1770, -0.5004, -9.6825],
 		 [-4.4507,  1.4562, -2.2756,  9.3683]]
 
-	print(mat.inverse(a))
 	assert mat.close(mat.inverse(a), r)
 
 def test_solve_n2():
