@@ -8,7 +8,7 @@ def value_close(a, b):
 	return abs(abs(a) - abs(b)) < 0.0001
 
 def close(a, b, eps = 0.0001):
-	"""Примерное соответствие"""
+	"""Примерное соответствие векторов"""
 
 	length_must_match(a, b)
 

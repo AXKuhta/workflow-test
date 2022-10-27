@@ -22,6 +22,17 @@ def index_must_exist(a, i):
 	if i > len(a) - 1:
 		raise ValueError("Index out of range")
 
+def close(a, b, eps = 0.01):
+	"""Примерное соответствие матриц"""
+
+	dimensions_must_match(a, b)
+
+	for i in range( len(a) ):
+		if not vec.close(a[i], b[i], eps):
+			return False
+			
+	return True
+
 def copy(a):
 	"""Получить копию матрицы"""
 
@@ -162,6 +173,51 @@ def cat(a, b, do_copy=True):
 		a[i] += b[i]
 
 	return a
+
+def identity(n):
+	"""Возвразает единичную матрицу размерности n"""
+	m = []
+
+	for i in range(n):
+		r = [0]*n
+		r[i] = 1
+		m += [r]
+
+	return m
+
+def inverse(a):
+	"""Находит обратную матрицу"""
+	vsz = len(a)
+
+	c = cat( a, identity(vsz) )
+
+	l_rowswap = rowswap
+	l_rowk = rowk
+	l_rowkadd = rowkadd
+
+	for i in range(vsz):
+		elem = c[i][i]
+		
+		# Проверить, не попался ли нам ноль на главной диагонали
+		# Если попался, то текущую строку нужно отправить куда-нибудь ниже
+		if elem == 0:
+			l_rowswap(c, i, i + 1, do_copy=False)
+			elem = c[i][i]
+		
+		assert elem != 0
+		
+		# Привести элемент на главной диагонали к единице
+		l_rowk(c, i, 1/elem, do_copy=False)
+		
+		# Привести все элементы выше и ниже к нулям
+		for j in range(vsz):
+			if j == i:
+				continue
+			
+			if c[j][i] != 0.0:
+				l_rowkadd(c, j, i, -c[j][i], do_copy=False)
+
+	return transpose(transpose(c)[vsz:])
 
 def log_function_call(func):
 	"""Получает функцию и возвращаёт обёртку, при вызове которой будут напечатаны аргументы и результат выполнения функции"""
