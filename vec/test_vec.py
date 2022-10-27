@@ -1,4 +1,4 @@
-import vec.vec_ops as vec
+import vec.ops as vec
 
 def test_copy():
 	a = [1, 2, 3]

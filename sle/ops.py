@@ -1,4 +1,4 @@
-import mat.mat_ops as mat
+import mat.ops as mat
 
 def log_function_call(func):
 	"""Получает функцию и возвращаёт обёртку, при вызове которой будут напечатаны аргументы и результат выполнения функции"""

@@ -1,5 +1,5 @@
-import vec.vec_ops as vec
-import sle.sle_ops as sle
+import vec.ops as vec
+import sle.ops as sle
 
 def test_solve_n2():
 	a = [[2, 3], [4, 3]]

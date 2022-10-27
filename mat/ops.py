@@ -1,4 +1,4 @@
-import vec.vec_ops as vec
+import vec.ops as vec
 
 def dimensions_must_match(a, b):
 	"""Проверка совпадения размерности матриц"""

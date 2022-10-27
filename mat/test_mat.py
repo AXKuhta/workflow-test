@@ -1,5 +1,5 @@
-import mat.mat_ops as mat
-import vec.vec_ops as vec
+import mat.ops as mat
+import vec.ops as vec
 
 def test_copy():
 	a = [[1,1], [1,1]]
