@@ -113,9 +113,7 @@ def rowswap(a, i, j, do_copy=True):
 	if do_copy:
 		a = [] + a
 
-	t = a[i]
-	a[i] = a[j]
-	a[j] = t
+	a[i], a[j] = a[j], a[i]
 
 	return a
 
