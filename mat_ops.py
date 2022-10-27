@@ -22,11 +22,20 @@ def index_must_exist(a, i):
 	if i > len(a) - 1:
 		raise ValueError("Index out of range")
 
+def copy(a):
+	"""Получить копию матрицы"""
+
+	a = [] + a
+
+	for i in range( len(a) ):
+		a[i] = [] + a[i]
+
+	return a
+
 def add(a, b, do_copy=True):
 	dimensions_must_match(a, b)
 
-	if do_copy:
-		a = [] + a
+	if do_copy: a = copy(a)
 
 	for i in range( len(a) ):
 		a[i] = vec.add(a[i], b[i], do_copy)
@@ -36,8 +45,7 @@ def add(a, b, do_copy=True):
 def sub(a, b, do_copy=True):
 	dimensions_must_match(a, b)
 
-	if do_copy:
-		a = [] + a
+	if do_copy: a = copy(a)
 
 	for i in range( len(a) ):
 		a[i] = vec.sub(a[i], b[i], do_copy)
@@ -47,8 +55,7 @@ def sub(a, b, do_copy=True):
 def kmul(a, k, do_copy=True):
 	"""Умножение матрицы на скаляр"""
 
-	if do_copy:
-		a = [] + a
+	if do_copy: a = copy(a)
 
 	for i in range( len(a) ):
 		a[i] = vec.mul(a[i], k, do_copy)
@@ -110,8 +117,7 @@ def rowswap(a, i, j, do_copy=True):
 	index_must_exist(a, i)
 	index_must_exist(a, j)
 
-	if do_copy:
-		a = [] + a
+	if do_copy: a = copy(a)
 
 	a[i], a[j] = a[j], a[i]
 
@@ -125,8 +131,7 @@ def rowk(a, i, k, do_copy=True):
 
 	index_must_exist(a, i)
 
-	if do_copy:
-		a = [] + a
+	if do_copy: a = copy(a)
 
 	a[i] = vec.mul(a[i], k, do_copy)
 
@@ -141,8 +146,7 @@ def rowkadd(a, i, j, k, do_copy=True):
 	index_must_exist(a, i)
 	index_must_exist(a, j)
 
-	if do_copy:
-		a = [] + a
+	if do_copy: a = copy(a)
 
 	krow = vec.mul(a[j], k, do_copy=True) # Здесь do_copy принудительно True
 	a[i] = vec.add(a[i], krow, do_copy)
@@ -152,8 +156,7 @@ def rowkadd(a, i, j, k, do_copy=True):
 def cat(a, b, do_copy=True):
 	"""Производит склейку двух матриц"""
 
-	if do_copy:
-		a = [] + a
+	if do_copy: a = copy(a)
 
 	for i in range( len(a) ):
 		a[i] += b[i]
@@ -171,7 +174,7 @@ def log_function_call(func):
 		
 	return wrapper
 
-def solve(a, b, log=True):
+def solve(a, b, log=False):
 	"""
 	Решить систему линейных уравнений
 	Требует квадратную матрицу A
