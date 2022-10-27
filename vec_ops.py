@@ -18,6 +18,9 @@ def close(a, b, eps = 0.0001):
 			
 	return True
 
+def copy(a):
+	return [] + a
+
 def add(a, b, do_copy=True):
 	"""
 	Сложение векторов
@@ -27,8 +30,7 @@ def add(a, b, do_copy=True):
 
 	length_must_match(a, b)
 
-	if do_copy:
-		a = [] + a
+	if do_copy: a = copy(a)
 		
 	for i in range( len(a) ):
 		a[i] += b[i]
@@ -44,8 +46,7 @@ def sub(a, b, do_copy=True):
 
 	length_must_match(a, b)
 
-	if do_copy:
-		a = [] + a
+	if do_copy: a = copy(a)
 		
 	for i in range( len(a) ):
 		a[i] -= b[i]
@@ -53,8 +54,7 @@ def sub(a, b, do_copy=True):
 	return a
 
 def mul(a, k, do_copy=True):
-	if do_copy:
-		a = [] + a
+	if do_copy: a = copy(a)
 		
 	for i in range( len(a) ):
 		a[i] *= k
@@ -62,8 +62,7 @@ def mul(a, k, do_copy=True):
 	return a
 
 def div(a, k, do_copy=True):
-	if do_copy:
-		a = [] + a
+	if do_copy: a = copy(a)
 		
 	for i in range( len(a) ):
 		a[i] /= k
@@ -108,8 +107,7 @@ def orthogonal(a, b):
 	return value_close(cos(a,b), 0.0)
 
 def invert(a, do_copy=True):
-	if do_copy:
-		a = [] + a
+	if do_copy: a = copy(a)
 		
 	for i in range( len(a) ):
 		a[i] = -a[i]
@@ -117,8 +115,7 @@ def invert(a, do_copy=True):
 	return a
 
 def norm(a, do_copy=True):
-	if do_copy:
-		a = [] + a
+	if do_copy: a = copy(a)
 		
 	k = mag(a)
 		

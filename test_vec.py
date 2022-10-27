@@ -1,5 +1,14 @@
 import vec_ops as vec
-	
+
+def test_copy():
+	a = [1, 2, 3]
+	b = vec.copy(a)
+
+	b += [4]
+
+	assert a == [1, 2, 3]
+	assert b == [1, 2, 3, 4]
+
 def test_close():
 	assert vec.close( [5, 0.00005, 1], [5, 0.00006, 1], 0.0001 )
 
