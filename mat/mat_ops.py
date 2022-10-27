@@ -197,23 +197,19 @@ def inverse(a):
 
 	c = cat( a, identity(vsz) )
 
-	l_rowswap = rowswap
-	l_rowk = rowk
-	l_rowkadd = rowkadd
-
 	for i in range(vsz):
 		elem = c[i][i]
 		
 		# Проверить, не попался ли нам ноль на главной диагонали
 		# Если попался, то текущую строку нужно отправить куда-нибудь ниже
 		if elem == 0:
-			l_rowswap(c, i, i + 1, do_copy=False)
+			rowswap(c, i, i + 1, do_copy=False)
 			elem = c[i][i]
 		
 		assert elem != 0
 		
 		# Привести элемент на главной диагонали к единице
-		l_rowk(c, i, 1/elem, do_copy=False)
+		rowk(c, i, 1/elem, do_copy=False)
 		
 		# Привести все элементы выше и ниже к нулям
 		for j in range(vsz):
@@ -221,7 +217,7 @@ def inverse(a):
 				continue
 			
 			if c[j][i] != 0.0:
-				l_rowkadd(c, j, i, -c[j][i], do_copy=False)
+				rowkadd(c, j, i, -c[j][i], do_copy=False)
 
 	return transpose(transpose(c)[vsz:])
 
