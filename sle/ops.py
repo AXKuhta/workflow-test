@@ -52,3 +52,6 @@ def solve(a, b, log=False):
 				l_rowkadd(c, j, i, -c[j][i], do_copy=False)
 				
 	return mat.col(c, vsz)
+
+def inv_solve(a, b):
+	return mat.transpose( mat.mul( mat.inverse(a), b ) )[0]

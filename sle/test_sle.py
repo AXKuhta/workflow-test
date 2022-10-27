@@ -21,3 +21,10 @@ def test_solve_n4():
 
 	assert vec.close(sle.solve(a, b), [2/3, -43/18, 13/9, -7/18])
 	assert a == [[1, 2, 3, -2], [2, -1, -2, -3], [3, 2, -1, 2], [2, -3, 2, 1]]
+
+def test_inv_solve_n2():
+	a = [[2, 3], [4, 3]]
+	b = [[2], [7]]
+
+	assert vec.close(sle.inv_solve(a, b), [2.5, -1.0])
+	assert a == [[2, 3], [4, 3]]
