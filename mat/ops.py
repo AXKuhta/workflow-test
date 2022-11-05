@@ -182,6 +182,7 @@ def cat(a, b, do_copy=True):
 
 def identity(n):
 	"""Возвращает единичную матрицу размерности n"""
+
 	m = []
 
 	for i in range(n):
@@ -191,32 +192,55 @@ def identity(n):
 
 	return m
 
-def inverse(a):
-	"""Находит обратную матрицу"""
+def gj_solve(a, log_wrapper=lambda x: x):
+	"""
+	Внутренняя реализация метода Жордана-Гаусса
+	Изменяет предоставленную матрицу
+	Используйте sle.solve() или sle.inv_solve() вместо этой функции
+	"""
+
+	# Получить обёрнутые версии функций
+	# Используемая по умолчанию обёртка ничего не делает
+	# Но предоставленная пользователем может печатать историю операций
+	_rowswap = log_wrapper(rowswap)
+	_rowk = log_wrapper(rowk)
+	_rowkadd = log_wrapper(rowkadd)
+
 	vsz = len(a)
 
-	c = cat( a, identity(vsz) )
-
 	for i in range(vsz):
-		elem = c[i][i]
+		elem = a[i][i]
 		
 		# Проверить, не попался ли нам ноль на главной диагонали
 		# Если попался, то текущую строку нужно отправить куда-нибудь ниже
 		if elem == 0:
-			rowswap(c, i, i + 1, do_copy=False)
-			elem = c[i][i]
+			_rowswap(a, i, i + 1, do_copy=False)
+			elem = a[i][i]
 		
 		assert elem != 0
 		
 		# Привести элемент на главной диагонали к единице
-		rowk(c, i, 1/elem, do_copy=False)
+		_rowk(a, i, 1/elem, do_copy=False)
 		
 		# Привести все элементы выше и ниже к нулям
 		for j in range(vsz):
 			if j == i:
 				continue
 			
-			if c[j][i] != 0.0:
-				rowkadd(c, j, i, -c[j][i], do_copy=False)
+			if a[j][i] != 0.0:
+				_rowkadd(a, j, i, -a[j][i], do_copy=False)
 
-	return transpose(transpose(c)[vsz:])
+	return a
+
+def inverse(a):
+	"""
+	Нахождение обратной матрицы
+	Всегда возвращает новую матрицу
+	"""
+
+	vsz = len(a)
+	a = cat( a, identity(vsz) )
+
+	gj_solve(a)
+
+	return transpose(transpose(a)[vsz:])
