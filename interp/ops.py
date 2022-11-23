@@ -24,10 +24,15 @@ def multilerp2d(points, x):
 	
 	vsz = len(points)
 	
-	# Расстояние x до всех других точек
-	dsts = mat.sub(mat.cat(points, points), [[x, 0, 0, 0]]*vsz)
-	sdts = sorted(dsts, key=lambda x: abs(x[0]))
+	# X = матрица, где первый столбец заполнен значением x
+	# D = матрица с расстоянием от всех точек до требуемого x
+	# S = матрица D, отсортированная по уменьшению абсолютного расстояния
+	# R = матрица с координатами начальных точек, отсортированная по уменьшению абсолютного расстояния
+	X = [[x, 0]]*vsz
+	D = mat.sub(points, X)
+	S = sorted(D, key=lambda x: abs(x[0]))
+	R = mat.add(S, X)
 	
-	return lerp2d(sdts[0][2:], sdts[1][2:], x)
+	return lerp2d(R[0], R[1], x)
 	
 	
