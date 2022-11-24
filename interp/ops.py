@@ -41,7 +41,7 @@ def multilerp2d(points, x):
 	return lerp2d(point_a, point_b, x)
 	
 	
-def lagrange(points, x):
+def lagrange(points, tgt_x):
 	"""
 	Интерполяция при помощи полинома Лагранжа
 	Принимает массив из точек
@@ -50,16 +50,18 @@ def lagrange(points, x):
 
 	vsz = len(points)
 	
-	_x = mat.col(points, 0)
-	_y = mat.col(points, 1)
+	# Вектор-строки с координатами точек по x и y
+	x = mat.col(points, 0)
+	y = mat.col(points, 1)
 	
+	# Базисные полиномы
 	l = [1]*vsz
 	
 	for i in range(vsz):
 		for j in range(vsz):
 			if i == j:
 				continue
-			l[i] *= (x - _x[j]) / (_x[i] - _x[j])
+			l[i] *= (tgt_x - x[j]) / (x[i] - x[j])
 	
-	return vec.dot(_y, l)
+	return vec.dot(y, l)
 	
