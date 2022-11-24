@@ -11,13 +11,14 @@ def plot_interp():
 	]
 
 	x = [x/10 for x in range(-10, 70)]
-	y_lerp = [interp.multilerp2d(points, x) for x in x]
-	y_lagrange = [interp.lagrange(points, x) for x in x]
-
-	actual_look = plotly.graph_objects.Scatter(x=mat.col(points, 0), y=mat.col(points, 1))
-	lerp_look = plotly.graph_objects.Scatter(x=x, y=y_lerp, mode="markers")
-	lagrange_look = plotly.graph_objects.Scatter(x=x, y=y_lagrange, mode="markers")
 	
-	fig = plotly.graph_objects.Figure(data=[actual_look, lerp_look, lagrange_look])
+	y_linear 	= [interp.linear(points, x) for x in x]
+	y_lagrange 	= [interp.lagrange(points, x) for x in x]
+
+	reference 	= plotly.graph_objects.Scatter(x=mat.col(points, 0), y=mat.col(points, 1))
+	linear 		= plotly.graph_objects.Scatter(x=x, y=y_linear, mode="markers")
+	lagrange 	= plotly.graph_objects.Scatter(x=x, y=y_lagrange, mode="markers")
+	
+	fig = plotly.graph_objects.Figure(data=[reference, linear, lagrange])
 	fig.write_html("test.html")
 

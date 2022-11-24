@@ -16,7 +16,7 @@ def lerp2d(p1, p2, x):
 	
 	return k[0]*x + k[1]
 
-def multilerp2d(points, x):
+def linear(points, x):
 	"""
 	Кусочно-линейная интерполяция
 	Принимает массив из точек
