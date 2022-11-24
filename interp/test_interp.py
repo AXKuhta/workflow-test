@@ -16,4 +16,16 @@ def test_multilerp2d():
 	assert interp.multilerp2d(points, 8.5) == 11.0
 	assert interp.multilerp2d(points, 3.0) == 4.0
 
+def test_lagrange():
+	points = [
+		[1, 2],
+		[3, 4],
+		[3.5, 3],
+		[6, 7]
+	]
+	
+	assert interp.lagrange(points, 1) == 2
+	assert interp.lagrange(points, 3) == 4
+	assert interp.lagrange(points, 3.5) == 3
+	assert interp.lagrange(points, 6) == 7
 
