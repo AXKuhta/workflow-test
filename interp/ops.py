@@ -1,4 +1,5 @@
 import sle.ops as sle
+import vec.ops as vec
 import mat.ops as mat
 
 def lerp2d(p1, p2, x):
@@ -39,4 +40,26 @@ def multilerp2d(points, x):
 	
 	return lerp2d(point_a, point_b, x)
 	
+	
+def lagrange(points, x):
+	"""
+	Интерполяция при помощи полинома Лагранжа
+	Принимает массив из точек
+	Вторым аргументом является x, для которого нужно интерполировать значение y
+	"""
+
+	vsz = len(points)
+	
+	_x = mat.col(points, 0)
+	_y = mat.col(points, 1)
+	
+	l = [1]*vsz
+	
+	for i in range(vsz):
+		for j in range(vsz):
+			if i == j:
+				continue
+			l[i] *= (x - _x[j]) / (_x[i] - _x[j])
+	
+	return vec.dot(_y, l)
 	
