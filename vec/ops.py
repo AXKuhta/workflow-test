@@ -4,8 +4,8 @@ def length_must_match(a, b):
 	if len(a) != len(b):
 		raise ValueError("Length mismatch")
 
-def value_close(a, b):
-	return abs(abs(a) - abs(b)) < 0.0001
+def value_close(a, b, eps = 0.0001):
+	return abs(abs(a) - abs(b)) < eps
 
 def close(a, b, eps = 0.0001):
 	"""Примерное соответствие векторов"""
