@@ -11,8 +11,10 @@ def plot_interp():
 	]
 
 	x = [x/10 for x in range(-10, 70)]
+
+	linear_model = interp.linear(points)
 	
-	y_linear 	= [interp.linear(points, x) for x in x]
+	y_linear 	= [linear_model(x) for x in x]
 	y_lagrange 	= [interp.lagrange(points, x) for x in x]
 
 	reference 	= plotly.graph_objects.Scatter(x=mat.col(points, 0), y=mat.col(points, 1))
