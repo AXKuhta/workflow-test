@@ -47,8 +47,8 @@ def plot_approx():
 
 	reference 	= plotly.graph_objects.Scatter(x=mat.col(points, 0), y=mat.col(points, 1), name="Линейная интерполяция")
 	linear 		= plotly.graph_objects.Scatter(x=x, y=y_linear, mode="markers", name="Линейная аппроксимация")
-	polyn2 		= plotly.graph_objects.Scatter(x=x, y=y_polyn2, mode="markers", name="Полином второй степени")
-	polyn3 		= plotly.graph_objects.Scatter(x=x, y=y_polyn3, mode="markers", name="Полином второй степени")
+	polyn2 		= plotly.graph_objects.Scatter(x=x, y=y_polyn2, mode="markers", name="Полином 2й степени")
+	polyn3 		= plotly.graph_objects.Scatter(x=x, y=y_polyn3, mode="markers", name="Полином 3й степени")
 	cos3 		= plotly.graph_objects.Scatter(x=x, y=y_cos3, mode="markers", name="a*cos(3x) + b*cos(2x) + c*cos(x) + d")
 	
 	fig = plotly.graph_objects.Figure(data=[reference, linear, polyn2, polyn3, cos3])
