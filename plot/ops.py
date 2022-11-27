@@ -1,6 +1,7 @@
 import interp.ops as interp
 import approx.ops as approx
 import mat.ops as mat
+from math import cos
 import plotly
 
 def plot_interp():
@@ -53,3 +54,49 @@ def plot_approx():
 	
 	fig = plotly.graph_objects.Figure(data=[reference, linear, polyn2, polyn3, cos3])
 	fig.write_html("approx.html")
+
+def plot_image_approx():
+	data = []
+	vsz = 32
+
+	reference = mat.identity(vsz)
+
+	for i in range(vsz):
+		for j in range(vsz):
+			data.append( [i/vsz, j/vsz, reference[i][j]] )
+
+
+	jpeg_cos_xy = []
+
+	for mx in range(16):
+		for my in range(16):
+			if mx == 0 and my == 0:
+				expr = lambda x, y: 1
+			elif my == 0:
+				expr = eval(f"lambda x, y: cos(x*{3.14*mx})")
+			elif mx == 0:
+				expr = eval(f"lambda x, y: cos(y*{3.14*my})")
+			else:
+				expr = eval(f"lambda x, y: cos(x*{3.14*mx})*cos(y*{3.14*my})")
+
+			jpeg_cos_xy.append(expr)
+
+	model = approx.model(data, jpeg_cos_xy)
+	model_out = []
+
+	for i in range(vsz):
+		row = []
+
+		for j in range(vsz):
+			row.append( model(i/vsz, j/vsz) )
+
+		model_out.append(row)
+
+	heatmap_1 = plotly.graph_objects.Heatmap(z=reference)
+	heatmap_2 = plotly.graph_objects.Heatmap(z=model_out)
+
+	fig = plotly.graph_objects.Figure(data=[heatmap_1])
+	fig.write_html("pix1.html")
+
+	fig = plotly.graph_objects.Figure(data=[heatmap_2])
+	fig.write_html("pix2.html")
