@@ -8,6 +8,7 @@ linear = 		[ lambda x: x, lambda x: 1 ]
 polynomial_2 = 	[ lambda x: x*x, lambda x: x, lambda x: 1 ]
 polynomial_3 = 	[ lambda x: x*x*x, lambda x: x*x, lambda x: x, lambda x: 1 ]
 cos3 = 			[ lambda x: cos(3*x), lambda x: cos(2*x), lambda x: cos(x), lambda x: 1 ]
+dct_xy = 		[ lambda x, y: cos(x)*cos(y), lambda x, y: cos(x), lambda x, y: cos(y), lambda x, y: 1 ]
 
 class model():
 	"""
@@ -23,15 +24,15 @@ class model():
 		method: массив с функциями уравнения
 		"""
 
-		x = mat.col(points, 0)
-		y = mat.col(points, 1)
-		b = mat.transpose([y])
+		args = [v[:-1] for v in points]
+		vals = [v[-1:] for v in points]
+		b = vals
 		
 		# Из-за того что здесь матрицы упорядочены по строкам, проще найти сразу транспонированную A
 		A_t = []
 
 		for fn in method:
-			A_t.append([fn(v) for v in x])
+			A_t.append([fn(*v) for v in args])
 
 		A = mat.transpose(A_t)
 		A_x = mat.mul(A_t, A)
@@ -43,9 +44,9 @@ class model():
 		self.fn = method
 
 
-	def __call__(self, x):
+	def __call__(self, *args):
 		"""
-		Вычислить значение y для указанного x
+		Вычислить значение f для указанного x или x, y или x, y, z 
 		"""
 
-		return vec.dot(self.k, [fn(x) for fn in self.fn])
+		return vec.dot(self.k, [fn(*args) for fn in self.fn])

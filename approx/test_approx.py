@@ -31,3 +31,16 @@ def test_cos3_approx():
 	
 	for x, y in points:
 		assert vec.value_close( cos3_model(x), y )
+
+points_xy = [
+	[0, 0, 1],
+	[1, 0, 0],
+	[0, 1, 0],
+	[1, 1, 1]
+]
+
+def test_xy_approx():
+	cos3_model = approx.model(points_xy, approx.dct_xy)
+	
+	for x, y, z in points_xy:
+		assert vec.value_close( cos3_model(x, y), z )
