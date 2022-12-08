@@ -66,20 +66,23 @@ def plot_image_approx():
 			data.append( [i/vsz, j/vsz, reference[i][j]] )
 
 
-	jpeg_cos_xy = []
+	jpeg_cos_xy_src = "lambda x, y: ["
 
 	for mx in range(16):
 		for my in range(16):
 			if mx == 0 and my == 0:
-				expr = lambda x, y: 1
+				expr = "1"
 			elif my == 0:
-				expr = eval(f"lambda x, y: cos(x*{3.14*mx})")
+				expr = f"cos(x*{3.14*mx})"
 			elif mx == 0:
-				expr = eval(f"lambda x, y: cos(y*{3.14*my})")
+				expr = f"cos(y*{3.14*my})"
 			else:
-				expr = eval(f"lambda x, y: cos(x*{3.14*mx})*cos(y*{3.14*my})")
+				expr = f"cos(x*{3.14*mx})*cos(y*{3.14*my})"
 
-			jpeg_cos_xy.append(expr)
+			jpeg_cos_xy_src += expr + ", "
+
+	jpeg_cos_xy_src += "]"
+	jpeg_cos_xy = eval(jpeg_cos_xy_src)
 
 	model = approx.model(data, jpeg_cos_xy)
 	model_out = []
