@@ -106,11 +106,19 @@ def collinear(a, b):
 def orthogonal(a, b):
 	return value_close(cos(a,b), 0.0)
 
-def invert(a, do_copy=True):
+def negate(a, do_copy=True):
 	if do_copy: a = copy(a)
 		
 	for i in range( len(a) ):
 		a[i] = -a[i]
+		
+	return a
+
+def invert(a, do_copy=True):
+	if do_copy: a = copy(a)
+	
+	for i in range( len(a) ):
+		a[i] = 1 / a[i]
 		
 	return a
 

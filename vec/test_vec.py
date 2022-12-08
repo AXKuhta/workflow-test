@@ -54,8 +54,11 @@ def test_orthogonal():
 	assert vec.orthogonal( [1, 1], [-100,-100] ) == False
 	assert vec.orthogonal( [1, 1], [100,100] ) == False
 
+def test_negate():
+	assert vec.negate( [1,-1] ) == [-1,1]
+
 def test_invert():
-	assert vec.invert( [1,-1] ) == [-1,1]
+	assert vec.invert( [1,10] ) == [1,0.1]
 
 def test_norm():
 	assert vec.norm( [1, 5, 10] ) == [0.1/(1.26**0.5), 0.5/(1.26**0.5), 1.0/(1.26**0.5)]
