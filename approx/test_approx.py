@@ -40,7 +40,7 @@ points_xy = [
 ]
 
 def test_xy_approx():
-	cos3_model = approx.model(points_xy, approx.dct_xy)
+	cos_xy_model = approx.model(points_xy, approx.cos_xy)
 	
 	for x, y, z in points_xy:
-		assert vec.value_close( cos3_model(x, y), z )
+		assert vec.value_close( cos_xy_model(x, y), z )

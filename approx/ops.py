@@ -4,11 +4,11 @@ import sle.ops as sle
 from math import cos
 
 # Различные методы
-linear = 		[ lambda x: x, lambda x: 1 ]
-polynomial_2 = 	[ lambda x: x*x, lambda x: x, lambda x: 1 ]
-polynomial_3 = 	[ lambda x: x*x*x, lambda x: x*x, lambda x: x, lambda x: 1 ]
-cos3 = 			[ lambda x: cos(3*x), lambda x: cos(2*x), lambda x: cos(x), lambda x: 1 ]
-dct_xy = 		[ lambda x, y: cos(x)*cos(y), lambda x, y: cos(x), lambda x, y: cos(y), lambda x, y: 1 ]
+linear = 	lambda x: [x, 1]
+polynomial_2 = 	lambda x: [x*x, x, 1]
+polynomial_3 = 	lambda x: [x*x*x, x*x, x, 1]
+cos3 = 		lambda x: [cos(3*x), cos(2*x), cos(x), 1]
+cos_xy = 	lambda x, y: [cos(x)*cos(y), cos(x), cos(y), 1]
 
 class model():
 	"""
@@ -28,13 +28,9 @@ class model():
 		vals = [v[-1:] for v in points]
 		b = vals
 		
-		# Из-за того что здесь матрицы упорядочены по строкам, проще найти сразу транспонированную A
-		A_t = []
+		A = [method(*v) for v in args]
 
-		for fn in method:
-			A_t.append([fn(*v) for v in args])
-
-		A = mat.transpose(A_t)
+		A_t = mat.transpose(A)
 		A_x = mat.mul(A_t, A)
 		b_x = mat.mul(A_t, b)
 
@@ -49,4 +45,4 @@ class model():
 		Вычислить значение f для указанного x или x, y или x, y, z 
 		"""
 
-		return vec.dot(self.k, [fn(*args) for fn in self.fn])
+		return vec.dot(self.k, self.fn(*args))
