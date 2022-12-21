@@ -1,7 +1,8 @@
 import interp.ops as interp
 import approx.ops as approx
+import series.ops as series
 import mat.ops as mat
-from math import cos
+from math import exp, sin, cos, asin, acos
 import plotly
 
 def plot_interp():
@@ -103,3 +104,40 @@ def plot_image_approx():
 
 	fig = plotly.graph_objects.Figure(data=[heatmap_2])
 	fig.write_html("pix2.html")
+
+def plot_series():
+	x = [x/100 for x in range(-100, 100)]
+
+	_exp = series.init_approx_exp(20)
+	_sin = series.init_approx_sin(20)
+	_cos = series.init_approx_cos(20)
+	_arcsin = series.init_approx_arcsin(10)
+	_arccos = series.init_approx_arccos(10)
+	
+	y_appr_exp 	= [_exp(x) for x in x]
+	y_appr_sin 	= [_sin(x) for x in x]
+	y_appr_cos 	= [_cos(x) for x in x]
+	y_appr_arcsin = [_arcsin(x) for x in x]
+	y_appr_arccos = [_arccos(x) for x in x]
+
+	y_true_exp 	= [exp(x) for x in x]
+	y_true_sin 	= [sin(x) for x in x]
+	y_true_cos 	= [cos(x) for x in x]
+	y_true_arcsin = [asin(x) for x in x]
+	y_true_arccos = [acos(x) for x in x]
+
+	appr_exp 		= plotly.graph_objects.Scatter(x=x, y=y_appr_exp, mode="markers", name="y_appr_exp")
+	appr_sin 		= plotly.graph_objects.Scatter(x=x, y=y_appr_sin, mode="markers", name="y_appr_sin")
+	appr_cos 		= plotly.graph_objects.Scatter(x=x, y=y_appr_cos, mode="markers", name="y_appr_cos")
+	appr_arcsin		= plotly.graph_objects.Scatter(x=x, y=y_appr_arcsin, mode="markers", name="y_appr_arcsin")
+	appr_arccos		= plotly.graph_objects.Scatter(x=x, y=y_appr_arccos, mode="markers", name="y_appr_arccos")
+
+	true_exp 		= plotly.graph_objects.Scatter(x=x, y=y_true_exp, mode="markers", name="y_true_exp")
+	true_sin 		= plotly.graph_objects.Scatter(x=x, y=y_true_sin, mode="markers", name="y_true_sin")
+	true_cos 		= plotly.graph_objects.Scatter(x=x, y=y_true_cos, mode="markers", name="y_true_cos")
+	true_arcsin		= plotly.graph_objects.Scatter(x=x, y=y_true_arcsin, mode="markers", name="y_true_arcsin")
+	true_arccos		= plotly.graph_objects.Scatter(x=x, y=y_true_arccos, mode="markers", name="y_true_arccos")
+	
+	fig = plotly.graph_objects.Figure(data=[appr_exp, appr_sin, appr_cos, appr_arcsin, appr_arccos, true_exp, true_sin, true_cos, true_arcsin, true_arccos])
+	fig.write_html("series.html")
+
